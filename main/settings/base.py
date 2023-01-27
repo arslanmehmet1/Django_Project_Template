@@ -40,11 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #my Apps
+    'users',
 
     #Third Party Apps
     'rest_framework',
     'drf_yasg',
     # 'debug_toolbar',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -174,7 +177,7 @@ LOGGING = {
         "django": {
             "handlers": ["console", 'file'], 
             # log level describes the severity of the messages that the logger will handle. 
-            "level": config("DJANGO_LOG_LEVEL"),
+            "level": config("DJANGO_LOG_LEVEL", "INFO"),
             'propagate': True,
 
             # istersem 
@@ -186,3 +189,14 @@ LOGGING = {
     },
 }
 # handlers iki farklı handler işlemi yapan loji kuran 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+REST_AUTH_SERIALIZERS = {
+    'TOKEN_SERIALIZER': 'users.serializers.CustomTokenSerializer',
+    
+}
